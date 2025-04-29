@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'database_helper.dart';
+import 'config/theme.dart';
+import 'features/auth/presentation/pages/login_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -12,36 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'BookStore',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: Brightness.light,
-        ),
-        useMaterial3: true,
-        cardTheme: CardTheme(
-          elevation: 4,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16),
-          ),
-        ),
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: Colors.grey[100],
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide.none,
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide: const BorderSide(color: Colors.blue, width: 2),
-          ),
-        ),
-      ),
-      home: const BookStorePage(),
+      theme: AppTheme.lightTheme,
+      home: const LoginPage(),
     );
   }
 }
@@ -330,7 +309,7 @@ class _BookStorePageState extends State<BookStorePage> with SingleTickerProvider
 
 class BookCard extends StatelessWidget {
   final Book book;
-  final VoidCallback onTap;
+  final Function() onTap;
 
   const BookCard({
     super.key,
@@ -428,7 +407,7 @@ class BookCard extends StatelessWidget {
 
 class BookDetailView extends StatelessWidget {
   final Book book;
-  final VoidCallback onBack;
+  final Function() onBack;
 
   const BookDetailView({
     super.key,
