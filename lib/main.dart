@@ -1,21 +1,28 @@
 import 'package:flutter/material.dart';
+import 'config/theme.dart';
+import 'features/auth/presentation/pages/login_page.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(
+      child: CampusConnectApp(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class CampusConnectApp extends StatelessWidget {
+  const CampusConnectApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'BookStore',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: const BookStorePage(),
+      title: 'Campus Connect',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
+      home: const LoginPage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -50,21 +57,24 @@ class _BookStorePageState extends State<BookStorePage> {
       author: 'F. Scott Fitzgerald',
       price: 19.99,
       imageUrl: 'https://picsum.photos/200/300',
-      description: 'A story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.',
+      description:
+          'A story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.',
     ),
     Book(
       title: 'To Kill a Mockingbird',
       author: 'Harper Lee',
       price: 15.99,
       imageUrl: 'https://picsum.photos/200/300',
-      description: 'The story of racial injustice and the loss of innocence in the American South.',
+      description:
+          'The story of racial injustice and the loss of innocence in the American South.',
     ),
     Book(
       title: '1984',
       author: 'George Orwell',
       price: 14.99,
       imageUrl: 'https://picsum.photos/200/300',
-      description: 'A dystopian social science fiction novel and cautionary tale.',
+      description:
+          'A dystopian social science fiction novel and cautionary tale.',
     ),
     Book(
       title: 'Pride and Prejudice',
@@ -80,9 +90,11 @@ class _BookStorePageState extends State<BookStorePage> {
 
   @override
   Widget build(BuildContext context) {
-    final filteredBooks = books.where((book) =>
-        book.title.toLowerCase().contains(searchQuery.toLowerCase()) ||
-        book.author.toLowerCase().contains(searchQuery.toLowerCase())).toList();
+    final filteredBooks = books
+        .where((book) =>
+            book.title.toLowerCase().contains(searchQuery.toLowerCase()) ||
+            book.author.toLowerCase().contains(searchQuery.toLowerCase()))
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
@@ -115,7 +127,8 @@ class _BookStorePageState extends State<BookStorePage> {
             child: selectedBook == null
                 ? GridView.builder(
                     padding: const EdgeInsets.all(16),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 0.7,
                       crossAxisSpacing: 16,
@@ -151,7 +164,7 @@ class _BookStorePageState extends State<BookStorePage> {
 
 class BookCard extends StatelessWidget {
   final Book book;
-  final VoidCallback onTap;
+  final Function() onTap;
 
   const BookCard({
     super.key,
@@ -218,7 +231,7 @@ class BookCard extends StatelessWidget {
 
 class BookDetailView extends StatelessWidget {
   final Book book;
-  final VoidCallback onBack;
+  final Function() onBack;
 
   const BookDetailView({
     super.key,
