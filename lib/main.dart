@@ -25,6 +25,22 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Campus Connect'),
+      ),
+      body: const Center(
+        child: Text('Hello World'),
+      ),
+    );
+  }
+}
+
 class Book {
   final String title;
   final String author;

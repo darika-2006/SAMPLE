@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../config/theme.dart';
+import '../../../home/presentation/pages/home_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -54,7 +55,14 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 24),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Navigate to HomePage
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) => const HomePage(),
+                    ),
+                  );
+                },
                 child: const Text('Login'),
               ),
               const SizedBox(height: 16),
